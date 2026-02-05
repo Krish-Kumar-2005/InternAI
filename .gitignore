@@ -1,0 +1,52 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python
+__pycache__/
+*.pyc
+
+# Secrets
+backend/token.json
+backend/credentials.json
+.env
+
+# Large files
+*.pkl
+*.msi
+
+# Node
+node_modules/
+.env
+__pycache__/
+*.pyc
+*.pkl
+token.json
+credentials.json
+
+.env
+credentials.json
+token.json
+*.pkl
+__pycache__/
