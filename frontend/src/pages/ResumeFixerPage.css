@@ -1,0 +1,356 @@
+/* ResumeFixerPage.css */
+
+/* --------------------------------------------------------- */
+/* 1. ANIMATIONS & BACKGROUND                                */
+/* --------------------------------------------------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-up { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* --------------------------------------------------------- */
+/* 2. THE RESUME PAPER (Clean Modern Look)                   */
+/* --------------------------------------------------------- */
+.resume-page-container {
+  width: 210mm; 
+  min-height: 297mm;
+  background: white;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+}
+
+.resume-page-container::before,
+.resume-page-container::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* --------------------------------------------------------- */
+/* 3. TIPTAP EDITOR INTERNALS                                */
+/* --------------------------------------------------------- */
+.ProseMirror {
+  min-height: 297mm;
+  outline: none !important;
+  padding: 0.8in 0.8in; 
+  /* Back to Modern Fonts as requested */
+  font-family: 'Calibri', 'Inter', 'Roboto', sans-serif;
+  color: #1e293b;
+  line-height: 1.6;
+  font-size: 11pt;
+}
+
+.ProseMirror ::selection {
+  background-color: #bfdbfe;
+  color: #1e3a8a; 
+}
+
+/* --------------------------------------------------------- */
+/* 4. SMART COLUMN LAYOUT                                    */
+/* --------------------------------------------------------- */
+.ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  margin-bottom: 0.5em;
+}
+
+.ProseMirror td, .ProseMirror th {
+  vertical-align: top;
+  padding: 0 16px 0 0;
+  position: relative;
+  border: 1px dashed transparent; 
+}
+
+.ProseMirror td:last-child {
+  padding-right: 0;
+}
+
+.ProseMirror:focus td {
+  border-color: #f1f5f9; 
+}
+
+/* --------------------------------------------------------- */
+/* 5. RESUME TYPOGRAPHY                                      */
+/* --------------------------------------------------------- */
+.ProseMirror h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.ProseMirror h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 4px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.ProseMirror h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #334155;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+
+.ProseMirror h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.ProseMirror p {
+  margin-bottom: 6px;
+  color: #334155;
+}
+
+.ProseMirror ul {
+  padding-left: 18px;
+  margin: 4px 0 12px 0;
+}
+
+.ProseMirror li {
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.ProseMirror a {
+  color: #2563eb;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.ProseMirror a:hover {
+  border-bottom-color: #2563eb;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #94a3b8;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------- */
+/* 6. AI SUGGESTION CARDS                                    */
+/* --------------------------------------------------------- */
+.suggestion-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.suggestion-card:hover {
+  transform: translateY(-2px) scale(1.01);
+  border-color: #bfdbfe; 
+  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.15); 
+}
+
+.suggestion-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.suggestion-card:hover::before {
+  opacity: 1;
+}
+
+.suggestion-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #334155;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.suggestion-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 10px;
+  margin-top: 8px;
+}
+
+.impact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.impact-badge.high {
+  background: #ecfdf5;
+  color: #059669; 
+  border: 1px solid #d1fae5;
+}
+
+.impact-badge.medium {
+  background: #eff6ff;
+  color: #2563eb; 
+  border: 1px solid #dbeafe;
+}
+
+.apply-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+.suggestion-card:hover .apply-text {
+  opacity: 1;
+  transform: translateX(-2px);
+}
+
+/* --------------------------------------------------------- */
+/* 7. 🔥 THE PERFECT BUTTON (Loud Chicken - Blue Theme)      */
+/* --------------------------------------------------------- */
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content */
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 100px; /* Start as PILL shape */
+  font-weight: 700;
+  color: #2563eb; /* Theme Blue */
+  box-shadow: 0 0 0 2px #2563eb; /* Blue Ring */
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Icons */
+.animated-button svg {
+  position: absolute;
+  width: 22px;
+  fill: #2563eb;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 { right: 24px; }
+.animated-button .arr-2 { left: -25%; }
+
+/* The Circle Expansion */
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #2563eb; /* Blue Background */
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Text Slide */
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- HOVER EFFECTS (The Magic) --- */
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #ffffff;
+  border-radius: 12px; /* Morph to Rounded Rect */
+}
+
+.animated-button:hover .arr-1 { right: -25%; }
+.animated-button:hover .arr-2 { left: 24px; }
+.animated-button:hover .text { transform: translateX(12px); }
+.animated-button:hover svg { fill: #ffffff; }
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px #2563eb;
+}
+
+.animated-button:hover .circle {
+  width: 400px; /* Expand to fill */
+  height: 400px;
+  opacity: 1;
+}
+
+/* --- VARIANT: SECONDARY (Save Draft - White) --- */
+.animated-button.secondary {
+  /* Inherits defaults above */
+}
+
+/* --- VARIANT: PRIMARY (Download - Blue Inverse) --- */
+/* To make Download distinct, we invert it */
+.animated-button.primary {
+  background-color: #2563eb;
+  color: white;
+  box-shadow: 0 0 0 2px #2563eb;
+}
+.animated-button.primary svg { fill: white; }
+.animated-button.primary .circle { background-color: white; }
+
+/* Primary Hover */
+.animated-button.primary:hover { color: #2563eb; }
+.animated-button.primary:hover svg { fill: #2563eb; }
+
+/* Disabled */
+.animated-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(100%);
+}
